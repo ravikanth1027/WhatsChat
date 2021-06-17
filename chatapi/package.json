@@ -1,0 +1,22 @@
+{
+  "name": "chatapi",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^3.2.0",
+    "bluebird": "^3.7.2",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "faker": "^5.5.3",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "mongoose": "^5.12.11",
+    "morgan": "~1.9.1",
+    "telnyx": "^1.15.0"
+  }
+}
