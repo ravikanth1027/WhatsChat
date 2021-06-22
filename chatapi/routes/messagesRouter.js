@@ -8,47 +8,82 @@ mongoose.Promise = require('bluebird');
 const async = require('async')
 
 router.get("/", (req, res) =>{
+   //console.log(req.query.number)
     var mynumber = req.query.number
-    console.log("req.query.number: ",typeof req.query.number)
+    mynumber = '+'+mynumber.trim();
+    console.log("req.query.number: ",mynumber.trim())
     var data = {}
     var list_messages = []
+//    $or:[{"from":mynumber}, {"to":mynumber}]
     if(mynumber !== 'undefined'){
      User.find({"phonenumber":mynumber},function(error,doc1){
-        
         contactsData = doc1[0].contacts
-        let notuser = [];
-        
-        async.forEach(contactsData,(element, callback) => {
-          //({$or:[{$and : [ {"from" : element.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : element.number}]}]})
-          Message.find({$or:[{$and : [ {"from" : element.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : element.number}]}]}, (err, results) => {
-            console.log(results)
-            if (err) callback(err)
-            if(results.length == 0){
-              var tmp = {
-                contact : element,
-                messages : []
-               }
-               list_messages.push(tmp)
-              callback(null)
-
-            }
-            if(results.length) {
-               var tmp = {
-                contact : element,
-                messages : results
-               }
-               list_messages.push(tmp)
-               callback(null)
-          }
-     })
-      }, (err) => {
-            console.log("Hello0000000000"+list_messages)
-            if(err){
-            console.log(err)
+        var tmpContacts = new Map();
+        Message.find({"to":mynumber}, (err, results) => {         
+        async.forEach(results,(element, callback) => {
+          //console.log(element.from)
+          var found = contactsData.filter(function(item) { return item.number === element.from; });
+          if(found.length == 0){
+            
+            if(tmpContacts.has(element.from)){
+              tmpContacts.get(element.from).push(element)
             }else{
-              return res.status(200).send(list_messages);
-            }
-      });
+              var tmpMsgList = []
+              tmpMsgList.push(element)
+              tmpContacts.set(element.from, tmpMsgList) 
+          }
+          }
+        });
+        for (const [key, value] of tmpContacts.entries()) {
+         console.log(key, value);
+         var x = {
+              id: "key"+key,
+              name: key,
+              number: key,
+              avatar: null
+          }
+        var tmp = {
+          contact : x,
+          messages : value
+        }
+        list_messages.push(tmp)
+      }
+      if(contactsData.length == 0){
+        return res.status(200).send(list_messages);
+      }else{
+          async.forEach(contactsData,(element, callback) => {
+          //({$or:[{$and : [ {"from" : element.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : element.number}]}]})
+              Message.find({$or:[{$and : [ {"from" : element.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : element.number}]}]}, (err, results) => {
+                console.log(results)
+                if (err) callback(err)
+                if(results.length == 0){
+                    var tmp = {
+                      contact : element,
+                      messages : []
+                    }
+                    list_messages.push(tmp)
+                    callback(null)
+                }
+                if(results.length) {
+                    var tmp = {
+                      contact : element,
+                      messages : results
+                    }
+                    list_messages.push(tmp)
+                    callback(null)
+              }
+          });
+          }, (err) => {
+                console.log("Hello0000000000"+list_messages)
+                if(err){
+                  console.log(err)
+                }else{
+                    return res.status(200).send(list_messages);
+                }
+            });
+      }
+     });
+        
 
       });
    }

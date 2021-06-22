@@ -17,6 +17,8 @@ var adminRouter = require('./routes/adminLogin')
 var sendTelnyxRouter = require('./routes/sendTelnyx')
 var receiveTelnyxRouter = require('./routes/receviveTelnyx')
 
+var sampleTestRouter = require('./routes/sampleTest')
+
 var app = express();
 
 // view engine setup
@@ -36,6 +38,7 @@ app.use('/contacts', contactsRouter);
 app.use('/addcontact', addContactRouter);
 app.use('/sendtelnyx', sendTelnyxRouter);
 app.use('/receivetelnyx', receiveTelnyxRouter);
+app.use('/sampletest', sampleTestRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

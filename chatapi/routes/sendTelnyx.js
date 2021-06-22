@@ -8,14 +8,23 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-  msg = req.body.msg;
-  
-  telnyx.messages.create(
+  msg = req.body;
+  console.log("********")
+  console.log(msg)
+  console.log("********")
+  /*telnyx.messages.create(
   {
     'from': '+17342344988', // Your Telnyx number
     'to': '+17342344999',
-    'text': "TEST for RAVI KANTH"
+    'text': "TEST for RINKU"
   },
+  function(err, response) {
+    // asynchronously called
+    res.send(response);
+  }
+  );*/
+  telnyx.messages.create(
+  msg,
   function(err, response) {
     // asynchronously called
     res.send(response);

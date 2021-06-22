@@ -13,7 +13,7 @@ const UserSchema= new Schema({
         required: [true, 'from is required']
     },
     phonenumber:{
-        type: Number,
+        type: String,
         unique: true,
         required: [true, 'number is required']
     },

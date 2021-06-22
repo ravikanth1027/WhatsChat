@@ -25,7 +25,7 @@ router.post('/', function(req, res, next) {
   		if(doc1.length != 0){
   			userNumber = doc1[0].phonenumber;
   			res.send({
-   				 	token: userNumber
+   				 	token: userNumber+","+username
   			});
   		
   		}else{

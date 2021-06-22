@@ -33,6 +33,7 @@ router.get("/", (req, res) =>{
 router.post("/", (req, res) =>{
     var myData = new User(req.body);
     console.log(myData)
+    myData.phonenumber = "+"+myData.phonenumber
     myData.save()
     .then(item => {
         console.log(item.id)
