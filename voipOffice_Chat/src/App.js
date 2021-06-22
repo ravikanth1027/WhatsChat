@@ -49,7 +49,10 @@ function App() {
             <Register></Register>
           </Route>
           <Route path="/dashboard">
-            <Dashboard user={token}></Dashboard>
+            {token 
+              ?<Dashboard user={token}></Dashboard>
+              : <Login setToken={setToken}/>
+            }
           </Route>
           <Route path="/admin">
             {admin

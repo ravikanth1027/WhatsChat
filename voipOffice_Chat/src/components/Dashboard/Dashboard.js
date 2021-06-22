@@ -22,7 +22,7 @@ export default function Dashboard({user}) {
     }
     const mainUser = useState(user)
     console.log("Main user");
-    console.log(mainUser[0])
+    console.log(mainUser[0].split(',')[0])
     const [data, setData] = useState([])
     console.log(data)
     const [msgStatus, setmsgStatus] = useState([])
@@ -40,15 +40,16 @@ export default function Dashboard({user}) {
     }, [data])
 
     const fetchMessages=async()=>{
-    const response=await Axios('http://localhost:8080/messages?number='+ mainUser[0]);
+    const response=await Axios('http://localhost:8080/messages?number='+ mainUser[0].split(',')[0]);
+    //const response=await Axios('http://localhost:8080/sampletest?number='+ mainUser[0].split(',')[0]);
     console.log(response.data)
     setData(response.data) 
   }
     const sendMessages=async(x)=>{
         console.log(x)
         const responselocaldb=await Axios.post('http://localhost:8080/messages', x);
-        const response=await Axios.post('http://localhost:8080/sendtelnyx', x);
-        console.log("sendMessages:"+response.data)
+       // const response=await Axios.post('http://localhost:8080/sendtelnyx', x);
+        console.log("sendMessages:"+responselocaldb.data)
   }
     
     
@@ -72,10 +73,13 @@ export default function Dashboard({user}) {
         setData(newData)
         setMessage('')
         console.log("After pushMessage")
+        //var sender = "+"+mainUser[0]
+        var sender = mainUser[0].split(',')[0]
         const x = {
-            "msg" : message,
+            "text" : message,
+            "msg": message,
             "to": data[index].contact.number,
-            "from": mainUser[0]
+            "from": sender.trim()
         }
         sendMessages(x)
 
@@ -93,11 +97,11 @@ export default function Dashboard({user}) {
         <div className="app">
             <aside>
                 <header>
-                    <Avatar user={mainUser} showName />
+                    <Avatar user={mainUser[0].split(',')[1]} showName />
                 </header>
                 <Search search={search} setSearch={setSearch} />
                 
-                <ManageApp dataFromParent = {mainUser[0]}/>
+                <ManageApp dataFromParent = {mainUser[0].split(',')[0]}/>
                 <div className="contact-boxes">
                     {filteredContacts.map(({ contact, messages }) => (
                         <ContactBox
@@ -114,7 +118,7 @@ export default function Dashboard({user}) {
                     <header>
                         <Avatar user={contactSelected} showName />
                     </header>
-                    <MessagesBox messages={currentMessages} user={mainUser[0]} />
+                    <MessagesBox messages={currentMessages} user={mainUser[0].split(',')[0]} />
                     <ChatInputBox message={message} setMessage={setMessage} pushMessage={pushMessage} />
                 </main>
             ) : (

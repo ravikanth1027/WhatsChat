@@ -26,13 +26,19 @@ router.post("/", (req, res) =>{
             }else{
                 exist_contacts = doc[0].contacts;
             }
-            
-            exist_contacts.push({id, name, number, avatar});
-            User.update({'phonenumber':req.body.phonenumber},{$set: {"contacts": exist_contacts}},function(err,result){
+            var found = exist_contacts.filter(function(item) { return item.number === number; });
+            if(found.length == 0){
+                exist_contacts.push({id, name, number, avatar});
+                User.update({'phonenumber':req.body.phonenumber},{$set: {"contacts": exist_contacts}},function(err,result){
                 res.send(
                   (err === null) ? {msg: "item saved to database"} : {msg: err}
                     );
-            });
+                });    
+            }else{
+                res.send("Contact already exists")
+            }
+            
+            
         }
     });
     /*myData.save()

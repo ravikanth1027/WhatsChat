@@ -26,11 +26,11 @@ showForm = () => {
      <div> 
     <form onSubmit={this.handleSubmit}>
         <label>
-          Name:
+          Guest Name:
           <input type="text" value={this.state.value} name="name" onChange={this.handleChange} />
           GuestNumber:
           <input type="text" value={this.state.value} name="number" onChange={this.handleChange} />
-          <input type="text" value={this.state.value} name="phonenumber" onChange={this.props.dataFromParent} />
+          <input type="hidden" value={this.state.value} name="phonenumber" onChange={this.props.dataFromParent} />
         </label>
         <input type="submit" value="Submit" />
       </form>

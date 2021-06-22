@@ -24,10 +24,6 @@ export default function ChatInputBox({ message, setMessage, pushMessage }) {
                     onKeyDown={handleKeyDown}
                 />
             </div>
-
-            <div className="icon send" onClick={pushMessage}>
-                <img src={message ? sendIcon : micIcon} alt="" />
-            </div>
         </div>
     )
 }
