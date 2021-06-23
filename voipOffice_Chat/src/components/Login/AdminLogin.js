@@ -6,7 +6,7 @@ import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
 
 async function adminloginUser(credentials) {
- return fetch('http://localhost:8080/adminlogin', {
+ return fetch('http://108.60.134.228:8080/adminlogin', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

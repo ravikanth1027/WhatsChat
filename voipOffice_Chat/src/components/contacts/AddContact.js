@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './AddContact.css';
 
 async function addContactApi(contactDetails) {
- return fetch('http://localhost:8080/addcontact', {
+ return fetch('http://108.60.134.228:8080/addcontact', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

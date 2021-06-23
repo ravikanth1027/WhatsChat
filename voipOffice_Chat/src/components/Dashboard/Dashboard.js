@@ -40,15 +40,15 @@ export default function Dashboard({user}) {
     }, [data])
 
     const fetchMessages=async()=>{
-    const response=await Axios('http://localhost:8080/messages?number='+ mainUser[0].split(',')[0]);
+    const response=await Axios('http://108.60.134.228:8080/messages?number='+ mainUser[0].split(',')[0]);
     //const response=await Axios('http://localhost:8080/sampletest?number='+ mainUser[0].split(',')[0]);
     console.log(response.data)
     setData(response.data) 
   }
     const sendMessages=async(x)=>{
         console.log(x)
-        const responselocaldb=await Axios.post('http://localhost:8080/messages', x);
-       const response=await Axios.post('http://localhost:8080/sendtelnyx', x);
+        //const responselocaldb=await Axios.post('http://108.60.134.228:8080/messages', x);
+       const response=await Axios.post('http://108.60.134.228:8080/sendtelnyx', x);
         console.log("sendMessages:"+response.data)
   }
     

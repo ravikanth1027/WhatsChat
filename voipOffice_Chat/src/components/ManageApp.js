@@ -16,7 +16,7 @@ constructor(props) {
 
   handleSubmit = (event) => {
     this.state.phonenumber = this.props.dataFromParent
-    const response= Axios.post('http://localhost:8080/addcontact', this.state);
+    const response= Axios.post('http://108.60.134.228:8080/addcontact', this.state);
     return response.json();
     event.preventDefault();
 }

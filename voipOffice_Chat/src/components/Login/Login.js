@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import voipImg from '../../assets/SVG.png'
 
 async function loginUser(credentials) {
- return fetch('http://localhost:8080/login', {
+ return fetch('http://108.60.134.228:8080/login', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ async function loginUser(credentials) {
 
 
 async function adminloginUser(credentials) {
- return fetch('http://localhost:8080/adminlogin', {
+ return fetch('http://108.60.134.228:8080/adminlogin', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'
