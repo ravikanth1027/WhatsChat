@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const faker = require('faker')
+/*const faker = require('faker')*/
 var Schema = mongoose.Schema;
 
 const messageSchema= new Schema({
@@ -20,7 +20,7 @@ const messageSchema= new Schema({
     },
     date:{
         type:Date,
-        default:faker.date.recent()
+        default:Date.now()
     }
 });
 

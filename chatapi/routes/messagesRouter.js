@@ -14,7 +14,6 @@ router.get("/", (req, res) =>{
     console.log("req.query.number: ",mynumber.trim())
     var data = {}
     var list_messages = []
-//    $or:[{"from":mynumber}, {"to":mynumber}]
     if(mynumber !== 'undefined'){
      User.find({"phonenumber":mynumber},function(error,doc1){
         contactsData = doc1[0].contacts
@@ -24,18 +23,31 @@ router.get("/", (req, res) =>{
           //console.log(element.from)
           var found = contactsData.filter(function(item) { return item.number === element.from; });
           if(found.length == 0){
-            
+          //$and:[{"from" : mynumber},{"to" : element.number}]
             if(tmpContacts.has(element.from)){
               tmpContacts.get(element.from).push(element)
             }else{
               var tmpMsgList = []
               tmpMsgList.push(element)
-              tmpContacts.set(element.from, tmpMsgList) 
+              tmpContacts.set(element.from, tmpMsgList)               
+          }
+          }
+        });
+        Message.find({"from":mynumber}, (err, results) => {         
+        async.forEach(results,(element, callback) => {
+          var found = contactsData.filter(function(item) { return item.number === element.to; });
+          if(found.length == 0){
+          //$and:[{"from" : mynumber},{"to" : element.number}]
+            if(tmpContacts.has(element.to)){
+              tmpContacts.get(element.to).push(element)
+            }else{
+              var tmpMsgList = []
+              tmpMsgList.push(element)
+              tmpContacts.set(element.from, tmpMsgList)               
           }
           }
         });
         for (const [key, value] of tmpContacts.entries()) {
-         console.log(key, value);
          var x = {
               id: "key"+key,
               name: key,
@@ -54,7 +66,7 @@ router.get("/", (req, res) =>{
           async.forEach(contactsData,(element, callback) => {
           //({$or:[{$and : [ {"from" : element.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : element.number}]}]})
               Message.find({$or:[{$and : [ {"from" : element.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : element.number}]}]}, (err, results) => {
-                console.log(results)
+                //console.log(results)
                 if (err) callback(err)
                 if(results.length == 0){
                     var tmp = {
@@ -83,14 +95,14 @@ router.get("/", (req, res) =>{
             });
       }
      });
-        
-
-      });
+    });
+    });
    }
 else{
     return res.status(200).send([]);
-}
-   });
+  }
+});
+
 
 router.post("/", (req, res) =>{
   console.log(req.body.msg)

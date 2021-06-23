@@ -10,8 +10,12 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-  console.log(req.body)
-  var message = new Message(req.body);
+   var msg = {
+        "from": req.body.from,
+        "to": reto,
+        "msg": msg
+                };
+    var message = new Message(msg);
     message["id"] = faker.random.uuid()
     message.save()
     .then(item => {

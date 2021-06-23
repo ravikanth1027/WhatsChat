@@ -47,7 +47,7 @@ export default function Dashboard({user}) {
   }
     const sendMessages=async(x)=>{
         console.log(x)
-        //const responselocaldb=await Axios.post('http://localhost:8080/messages', x);
+        const responselocaldb=await Axios.post('http://localhost:8080/messages', x);
        const response=await Axios.post('http://localhost:8080/sendtelnyx', x);
         console.log("sendMessages:"+response.data)
   }
