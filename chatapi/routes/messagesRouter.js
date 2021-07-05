@@ -105,7 +105,7 @@ else{
 
 
 router.post("/", (req, res) =>{
-  console.log(req.body.msg)
+  console.log(req.body.text)
     var message = new Message(req.body);
     message["id"] = faker.random.uuid()
     message.save()

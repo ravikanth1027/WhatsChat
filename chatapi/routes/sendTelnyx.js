@@ -1,35 +1,35 @@
 var express = require('express');
 var router = express.Router();
+const faker = require('faker')
 var telnyx = require('telnyx')('KEY0179A9DC158E10BE3F59F5ABF06F2CB9_ef4AMhbmQtdkCfzuZ356Ex');
 /* GET home page. */
+const Message = require("../models/message");
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
 router.post('/', function(req, res, next) {
   msg = req.body;
-  console.log("********")
-  console.log(msg)
-  console.log("********")
-  /*telnyx.messages.create(
-  {
-    'from': '+17342344988', // Your Telnyx number
-    'to': '+17342344999',
-    'text': "TEST for RINKU"
-  },
-  function(err, response) {
-    // asynchronously called
-    res.send(response);
-  }
-  );*/
-  telnyx.messages.create(
-  msg,
-  function(err, response) {
-    // asynchronously called
-    res.send(response);
-  }
-  );
+  var from = req.body.from;
+  var to = req.body.to;
+  var text = req.body.text;
+  console.log("#####")
+   var mtxt = {
+        "from": from,
+        "to": to,
+        "text": text
+                };
+    console.log(mtxt)
+   var message = new Message(mtxt);
+    message["id"] = faker.random.uuid()
+    message.save()
+    .then(item => {
+        res.send(item);})
+ .catch(err => {
+  console.log(err)
+      res.status(400).send("unable to save to database");
+    });
+  //res.send(response);
 });
 
 module.exports = router;

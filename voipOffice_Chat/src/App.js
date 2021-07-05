@@ -27,7 +27,7 @@ const fetchJson = (url, options = {}) => {
 }
 
 const dataProvider =
-  simpleRestProvider("http://108.60.134.228:8080", fetchJson);
+  simpleRestProvider("http://localhost:8080", fetchJson);
 
 
 

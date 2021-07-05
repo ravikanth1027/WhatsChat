@@ -6,7 +6,7 @@ const messageSchema= new Schema({
     id : {
         type:String
     },
-    msg : {
+    text : {
         type:String,
         required: [true, 'from is required']
     },

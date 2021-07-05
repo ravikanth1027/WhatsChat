@@ -12,7 +12,7 @@ router.post('/', function(req, res, next) {
   req.body;
   username = req.body.username;
   password = req.body.password;
-
+  console.log("In Login")
   if(username === "admin"){
   	 if(password === "123"){
   	 		res.send({

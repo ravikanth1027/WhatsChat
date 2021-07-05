@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react'
 import Message from './Message'
 
 export default function MessagesBox({ messages , user}) {
-    console.log("MessagesBox")
-    console.log(user)
+    //console.log("MessagesBox")
+    //console.log(user)
     const endDiv = useRef(null)
     useEffect(() => {
         endDiv.current.scrollIntoView()

@@ -14,46 +14,52 @@ import {ContactsData, MsgData} from '../../sample'
 import PersonComponent from '../PersonComponent'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import appCom from '../../appCom'
 
+const delay = 5;
 export default function Dashboard({user}) {
     const history = useHistory();
     if(user == null){
         history.push("/login");
     }
     const mainUser = useState(user)
-    console.log("Main user");
-    console.log(mainUser[0].split(',')[0])
+    //console.log("Main user");
+    //console.log(mainUser[0].split(',')[0])
     const [data, setData] = useState([])
-    console.log(data)
+    //console.log(data)
     const [msgStatus, setmsgStatus] = useState([])
     const [contactSelected, setContactSelected] = useState({})
     const [currentMessages, setCurrentMessages] = useState([])
     const [message, setMessage] = useState('')
     const [search, setSearch] = useState('')
     const [filteredContacts, setFilterContacts] = useState([])
+    const [show, setShow] = useState(false);
     
     useEffect(() => {
       fetchMessages();
     }, [])
     useEffect(() => {
-        console.log(data)
+        //console.log(data)
     }, [data])
+    
 
     const fetchMessages=async()=>{
-    const response=await Axios('http://108.60.134.228:8080/messages?number='+ mainUser[0].split(',')[0]);
+    const response=await Axios('http://localhost:8080/messages?number='+ mainUser[0].split(',')[0]);
     //const response=await Axios('http://localhost:8080/sampletest?number='+ mainUser[0].split(',')[0]);
-    console.log(response.data)
+    //console.log(response.data)
     setData(response.data) 
   }
     const sendMessages=async(x)=>{
-        console.log(x)
-        //const responselocaldb=await Axios.post('http://108.60.134.228:8080/messages', x);
-       const response=await Axios.post('http://108.60.134.228:8080/sendtelnyx', x);
-        console.log("sendMessages:"+response.data)
+        console.log("send Messages called")
+        //const responselocaldb=await Axios.post('http://localhost:8080/messages', x);
+       const response_send=await Axios.post('http://localhost:8080/sendtelnyx', x);
+       //const response = await Axios.post('http://localhost:8080/receivetelnyx', x);
+        console.log("sendMessages:")
+        console.log(response_send.data)
   }
     
     
-    /*console.log("Messages"+ data)*/
+    /*//console.log("Messages"+ data)*/
 
     useEffect(() => {
         const currContact = data.find((d) => d.contact.id === contactSelected.id)
@@ -69,15 +75,15 @@ export default function Dashboard({user}) {
                 messages: [...data[index].messages, new Message(true, message, new Date())],
             },
         })
-        console.log("Index:  "+ data[index].contact.number)
+        //console.log("Index:  "+ data[index].contact.number)
         setData(newData)
         setMessage('')
-        console.log("After pushMessage")
+        //console.log("After pushMessage")
         //var sender = "+"+mainUser[0]
         var sender = mainUser[0].split(',')[0]
         const x = {
             "text" : message,
-            "msg": message,
+            //"msg": message,
             "to": data[index].contact.number,
             "from": sender.trim()
         }
@@ -100,7 +106,6 @@ export default function Dashboard({user}) {
                     <Avatar user={mainUser[0].split(',')[1]} showName />
                 </header>
                 <Search search={search} setSearch={setSearch} />
-                
                 <ManageApp dataFromParent = {mainUser[0].split(',')[0]}/>
                 <div className="contact-boxes">
                     {filteredContacts.map(({ contact, messages }) => (

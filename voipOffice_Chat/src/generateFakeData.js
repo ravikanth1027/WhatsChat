@@ -9,9 +9,9 @@ class User {
     }
 }
 export class Message {
-    constructor(isMainUser, msg, date) {
+    constructor(isMainUser, text, date) {
         this.id = faker.random.uuid()
-        this.msg = msg || faker.lorem.words(faker.helpers.randomize([...Array(20).keys()]))
+        this.text = text || faker.lorem.words(faker.helpers.randomize([...Array(20).keys()]))
         this.isMainUser = isMainUser
         this.date = date || faker.date.recent()
     }
@@ -30,7 +30,7 @@ export const contactsMessages = contacts.map((contact) => {
             .map((_, i) => {
                 return (i + 1) % 2 === 0 ? new Message(true) : new Message(false)
             })
-            .filter((m) => m.msg),
+            .filter((m) => m.text),
     }
 })
 
