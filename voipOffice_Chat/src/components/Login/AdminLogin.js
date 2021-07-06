@@ -4,9 +4,11 @@ import './AdminLogin.css';
 import Dashboard from '../Dashboard/Dashboard'
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
+import * as pageBase from '../../pageBase'
 
 async function adminloginUser(credentials) {
- return fetch('http://localhost:8080/adminlogin', {
+  var url = pageBase.SERVICE_URL+'adminlogin'
+ return fetch(url, {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

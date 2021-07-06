@@ -5,9 +5,11 @@ import Dashboard from '../Dashboard/Dashboard'
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
 import voipImg from '../../assets/SVG.png'
+import * as pageBase from '../../pageBase'
 
 async function loginUser(credentials) {
- return fetch('http://localhost:8080/login', {
+  var url = pageBase.SERVICE_URL+'login'
+ return fetch(url, {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'
@@ -19,7 +21,8 @@ async function loginUser(credentials) {
 
 
 async function adminloginUser(credentials) {
- return fetch('http://localhost:8080/adminlogin', {
+  var url = pageBase.SERVICE_URL+'adminlogin'
+ return fetch(url, {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

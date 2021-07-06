@@ -1,5 +1,6 @@
 let isSubscribed = false;
 let swRegistration = null;
+
 let applicationKey = "BFveEp9QA5ZnTev5mGo_JjwIe2a0MsT6nUeeVQdrj7xns_8UoS2m-vAUzrOCBzGV4nZ5Qd_NnHMJ8hGAtSoprko";
 
 
@@ -25,27 +26,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 
     navigator.serviceWorker.register('sw.js')
         .then(function (swReg) {
-            if(swReg.installing) {
-        console.log('Service worker installing');
-    } else if(swReg.waiting) {
-        console.log('Service worker installed');
-    } else if(swReg.active) {
-        console.log('Service worker active');
-    
-    } 
-    // Check if push messaging is supported  
-    /*if (!('PushManager' in window)) {  
-       console.log('Push messaging isn\'t supported.');  
-       return;  
-     }*/
-   //
-   /*if (Notification.permission === 'denied') {  
-      console.log('The user has blocked notifications.');  
-      return;  
-   }   */
-
             swRegistration = swReg;
-
             swRegistration.pushManager.getSubscription()
                 .then(function (subscription) {
                     isSubscribed = !(subscription === null);

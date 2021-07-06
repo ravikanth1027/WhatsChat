@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
-
+import './ManageApp.css';
+import * as pageBase from '../pageBase'
 class ManageApp extends Component{
 constructor(props) {
     super(props);
@@ -15,8 +16,9 @@ constructor(props) {
   }
 
   handleSubmit = (event) => {
+    var url = pageBase.SERVICE_URL
     this.state.phonenumber = this.props.dataFromParent
-    const response= Axios.post('http://localhost:8080/addcontact', this.state);
+    const response= Axios.post(url+'addcontact', this.state);
     return response.json();
     event.preventDefault();
 }
@@ -27,9 +29,9 @@ showForm = () => {
     <form onSubmit={this.handleSubmit}>
         <label>
           Contact Name:
-          <input type="text" value={this.state.value} name="name" onChange={this.handleChange} />
+          <input type="text" value={this.state.value} name="name" onChange={this.handleChange} required/>
           Contact Number:
-          <input type="text" value={this.state.value} name="number" onChange={this.handleChange} />
+          <input type="text" value={this.state.value} name="number" onChange={this.handleChange} required/>
           <input type="hidden" value={this.state.value} name="phonenumber" onChange={this.props.dataFromParent} />
         </label>
         <input type="submit" value="Submit" />

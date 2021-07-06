@@ -15,6 +15,7 @@ import PersonComponent from '../PersonComponent'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import appCom from '../../appCom'
+import * as pageBase from '../../pageBase'
 
 const delay = 5;
 export default function Dashboard({user}) {
@@ -28,7 +29,8 @@ export default function Dashboard({user}) {
     const [data, setData] = useState([])
     //console.log(data)
     const [msgStatus, setmsgStatus] = useState([])
-    const [contactSelected, setContactSelected] = useState({})
+    const [contactSelected, setContactSelected] = useState([])
+    const [deleteContacts, setDeleteContacts] = useState({})
     const [currentMessages, setCurrentMessages] = useState([])
     const [message, setMessage] = useState('')
     const [search, setSearch] = useState('')
@@ -44,22 +46,20 @@ export default function Dashboard({user}) {
     
 
     const fetchMessages=async()=>{
-    const response=await Axios('http://localhost:8080/messages?number='+ mainUser[0].split(',')[0]);
+        var url = pageBase.SERVICE_URL+'messages?number='+ mainUser[0].split(',')[0]
+    const response=await Axios(url);
     //const response=await Axios('http://localhost:8080/sampletest?number='+ mainUser[0].split(',')[0]);
     //console.log(response.data)
     setData(response.data) 
   }
     const sendMessages=async(x)=>{
-        console.log("send Messages called")
-        //const responselocaldb=await Axios.post('http://localhost:8080/messages', x);
-       const response_send=await Axios.post('http://localhost:8080/sendtelnyx', x);
-       //const response = await Axios.post('http://localhost:8080/receivetelnyx', x);
-        console.log("sendMessages:")
+        var url = pageBase.SERVICE_URL+'sendtelnyx'
+       const response_send=await Axios.post(url, x);
         console.log(response_send.data)
   }
     
     
-    /*//console.log("Messages"+ data)*/
+    console.log(deleteContacts)
 
     useEffect(() => {
         const currContact = data.find((d) => d.contact.id === contactSelected.id)
@@ -114,6 +114,7 @@ export default function Dashboard({user}) {
                             key={contact.id}
                             setContactSelected={setContactSelected}
                             messages={messages}
+                            mynumber = {mainUser[0].split(',')[0]}
                         />
                     ))}
                 </div>

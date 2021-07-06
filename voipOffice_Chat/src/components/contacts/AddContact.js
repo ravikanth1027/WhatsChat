@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './AddContact.css';
+import * as pageBase from '../../../pageBase'
 
 async function addContactApi(contactDetails) {
- return fetch('http://localhost:8080/addcontact', {
+  var url = pageBase.SERVICE_URL + 'addcontact'
+ return fetch(url, {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

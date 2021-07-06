@@ -12,9 +12,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   console.log("receive api called");
-  var from = req.body.from;
-  var to = req.body.to;
-  var text = req.body.text;
+//  var from = req.body.from;
+ // var to = req.body.to;
+  //var text = req.body.text;
+var from = req.body.data.payload.from.phone_number;
+  var to = req.body.data.payload.to[0].phone_number;
+  var msg = req.body.data.payload.text;
   console.log("#####")
    var mtxt = {
         "from": from,

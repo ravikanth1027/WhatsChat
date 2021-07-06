@@ -2,9 +2,36 @@ import React from 'react'
 import doubleCheck from '../assets/done_all.svg'
 import Avatar from './Avatar'
 import { Checkbox } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+import del from '../assets/del.png'
+import * as pageBase from '../pageBase'
+async function contactDelete(contact, mynumber) {
+    var payload = {
+        "contact" : contact,
+        "mynumber" : mynumber
+    }
+    var url = pageBase.SERVICE_URL+'deleteContact'
+ return fetch(url, {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(payload)
+ })
+   .then(data => data.json())
+}
 
+function deleteContact(contacttodel, mynumber){
+    if (window.confirm("Confirm Contact Delete")) {
+        /*txt = "You pressed OK!";*/
+    const message  = contactDelete(contacttodel, mynumber);
+      
+  } else {
+    console.log("Cancelled")
+  }
+}
 
-export default function ContactBox({ contact, setContactSelected, messages }) {
+export default function ContactBox({ contact, setContactSelected, messages, mynumber }) {
     /*console.log("ContactBox: "+ contact.name+ " :")*/
     console.log(messages)
     //const maxTs = Math.max(...messages.map((m) => m.date.getTime())) m.date = new Date(m.date)
@@ -33,12 +60,14 @@ export default function ContactBox({ contact, setContactSelected, messages }) {
                 <div className="contact-box-header">
                     <h3 className="avatar-title">{contact.name}</h3>
                     <span className="time-mark">{lastMsg.date.toLocaleDateString()}</span>
-                    <Checkbox/>
                 </div>
                 <div className="last-msg">
                     <img src={doubleCheck} alt="" className="icon-small" />
                     <span className="text">{truncate(lastMsg.text, 30)}</span>
                 </div>
+            </div>
+            <div class="w3-container">
+                <button class="w3-button w3-small w3-circle w3-grey" onClick={()=> deleteContact(contact, mynumber)}>-</button>
             </div>
         </div>
     )
@@ -52,6 +81,9 @@ export default function ContactBox({ contact, setContactSelected, messages }) {
                 </div>
                 <div className="last-msg">
                 </div>
+            </div>
+            <div class="w3-container">
+                <button class="w3-button w3-small w3-circle w3-grey" onClick={()=> deleteContact(contact, mynumber)}>-</button>
             </div>
         </div>
     )
