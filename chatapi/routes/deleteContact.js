@@ -30,7 +30,7 @@ router.post("/", (req, res) =>{
             console.log("After removal:", exist_contacts);
             User.update({'phonenumber':req.body.mynumber},{$set: {"contacts": exist_contacts}},function(err,result){
                 var myquery =  {$or:[{$and : [ {"from" : contactToDel.number}, {"to" : mynumber}]},{$and:[{"from" : mynumber},{"to" : contactToDel.number}]}]};
-                Messages.deleteOne(myquery, function(err, obj) {
+                Messages.deleteMany(myquery, function(err, obj) {
               if (err) throw err;
                   console.log("1 document deleted");
                  });

@@ -24,7 +24,11 @@ router.post('/', function(req, res, next) {
     message["id"] = faker.random.uuid()
     message.save()
     .then(item => {
-        res.send(item);})
+	telnyx.messages.create(mtxt,function(err, response) { // asynchronously called
+          res.send(response);
+        });
+  //      res.send(item);
+})
  .catch(err => {
   console.log(err)
       res.status(400).send("unable to save to database");

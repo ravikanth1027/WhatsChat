@@ -12,27 +12,31 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   console.log("receive api called");
+  console.log("receive api called",req.body.data);
 //  var from = req.body.from;
  // var to = req.body.to;
   //var text = req.body.text;
 var from = req.body.data.payload.from.phone_number;
   var to = req.body.data.payload.to[0].phone_number;
-  var msg = req.body.data.payload.text;
+  var text = req.body.data.payload.text;
   console.log("#####")
    var mtxt = {
         "from": from,
         "to": to,
         "text": text
                 };
-    console.log(mtxt)
+    //console.log(mtxt)
+    console.log("mtxt:",mtxt)
+    console.log("receive api called", req.body.data.payload.to);
+
    var message = new Message(mtxt);
     message["id"] = faker.random.uuid()
     message.save()
     .then(item => {
-        bodyParms =  "phonenumber="+to+"&from="+from+"&message="+text+"&url=http://localhost:3000/dashboard&title=Voipsms Chat"
+        bodyParms =  "phonenumber="+to+"&from="+from+"&message="+text+"&url=http://108.60.134.228:3000/dashboard&title=Voipsms Chat"
         request.post({
                 headers: {'content-type' : 'application/x-www-form-urlencoded'},
-                url:     'http://localhost:4000/push',
+                url:     'http://108.60.134.228:4000/push',
                 body : bodyParms
             }, 
             function(error, response, body){
