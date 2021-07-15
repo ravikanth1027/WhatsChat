@@ -70,7 +70,7 @@ async function saveSubscription(subscription) {
         "phonenumber" : phonenumber,
         "subscriptionKey": subscription
     }
- fetch('http://localhost:4000/subscribe', {
+ fetch('http://108.60.134.228:4000/subscribe', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'

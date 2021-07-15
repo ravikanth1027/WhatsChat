@@ -43,7 +43,15 @@ export default function Dashboard({user}) {
     useEffect(() => {
         //console.log(data)
     }, [data])
-    
+
+	useEffect(() => {
+
+        const interval = setInterval(() => {
+            fetchMessages();
+        console.log('This will run every 10 second!');
+        }, 10000);
+        return () => clearInterval(interval);
+    }, []);    
 
     const fetchMessages=async()=>{
         var url = pageBase.SERVICE_URL+'messages?number='+ mainUser[0].split(',')[0]
