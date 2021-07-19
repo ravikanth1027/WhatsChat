@@ -20,16 +20,17 @@ const fetchJson = (url, options = {}) => {
     }
     // add your own headers here
     const token = localStorage.getItem('token');
-    console.log("tokennnnnnnnn:", token)
+    //console.log("tokennnnnnnnn:", token)
     options.headers.set('Authorization', `Bearer ${token}`);
     options.headers.set('X-Custom-Header', 'foobar');
+    console.log("url:",url)
     return fetchUtils.fetchJson(url, options);
 }
 
 const dataProvider =
-  simpleRestProvider("http://108.60.134.228:8080", fetchJson);
+  simpleRestProvider("http://localhost:8080", fetchJson);
 
-
+//108.60.134.22
 
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
           <Route path="/admin">
             {admin
                  ? <Admin dataProvider={dataProvider} authProvider={authProvider}>
-              <Resource name="contacts" list={UserList}  create={UserCreate}/>
+              <Resource name="contacts" list={UserList}  create={UserCreate} edit={UserEdit}/>
             </Admin>
                   : <Login setToken={setToken}/>
             }

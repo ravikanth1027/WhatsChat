@@ -44,14 +44,14 @@ export default function Dashboard({user}) {
         //console.log(data)
     }, [data])
 
-	useEffect(() => {
+	/*useEffect(() => {
 
         const interval = setInterval(() => {
             fetchMessages();
         console.log('This will run every 10 second!');
         }, 10000);
         return () => clearInterval(interval);
-    }, []);    
+    }, []); */   
 
     const fetchMessages=async()=>{
         var url = pageBase.SERVICE_URL+'messages?number='+ mainUser[0].split(',')[0]
