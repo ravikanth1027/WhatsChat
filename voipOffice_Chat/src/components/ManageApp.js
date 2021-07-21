@@ -16,7 +16,7 @@ constructor(props) {
   }
 
   handleSubmit = (event) => {
-    var url = pageBase.SERVICE_URL
+    var url = 'http://108.60.134.228:8080/'
     this.state.phonenumber = this.props.dataFromParent
     const response= Axios.post(url+'addcontact', this.state);
     return response.json();

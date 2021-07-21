@@ -54,14 +54,14 @@ export default function Dashboard({user}) {
     }, []); */   
 
     const fetchMessages=async()=>{
-        var url = pageBase.SERVICE_URL+'messages?number='+ mainUser[0].split(',')[0]
+        var url = 'http://108.60.134.228:8080/messages?number='+ mainUser[0].split(',')[0]
     const response=await Axios(url);
     //const response=await Axios('http://localhost:8080/sampletest?number='+ mainUser[0].split(',')[0]);
     //console.log(response.data)
     setData(response.data) 
   }
     const sendMessages=async(x)=>{
-        var url = pageBase.SERVICE_URL+'sendtelnyx'
+        var url = 'http://108.60.134.228:8080/sendtelnyx'
        const response_send=await Axios.post(url, x);
         console.log(response_send.data)
   }

@@ -10,7 +10,7 @@ async function contactDelete(contact, mynumber) {
         "contact" : contact,
         "mynumber" : mynumber
     }
-    var url = pageBase.SERVICE_URL+'deleteContact'
+    var url = 'http://108.60.134.228:8080/deleteContact'
  return fetch(url, {
    method: 'POST',
    headers: {

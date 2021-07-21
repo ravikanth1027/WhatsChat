@@ -4,7 +4,7 @@ import './AddContact.css';
 import * as pageBase from '../../../pageBase'
 
 async function addContactApi(contactDetails) {
-  var url = pageBase.SERVICE_URL + 'addcontact'
+  var url = 'http://108.60.134.228:8080/addcontact'
  return fetch(url, {
    method: 'POST',
    headers: {

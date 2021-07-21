@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import * as pageBase from '../../pageBase'
 
 async function adminloginUser(credentials) {
-  var url = pageBase.SERVICE_URL+'adminlogin'
+  var url = 'http://108.60.134.228:8080/adminlogin'
  return fetch(url, {
    method: 'POST',
    headers: {
