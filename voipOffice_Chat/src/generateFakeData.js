@@ -1,6 +1,6 @@
 
 const faker = require('faker')
-
+/*import Datetime from 'react-datetime';*/
 class User {
     constructor() {
         this.id = faker.random.uuid()

@@ -22,13 +22,15 @@ router.post('/', function(req, res, next) {
     console.log(mtxt)
    var message = new Message(mtxt);
     message["id"] = faker.random.uuid()
+    message["date"] = new Date()
+    //console.log("^^^^^^^^^",message["date"])
     telnyx.messages.create(mtxt,function(err, response) { // asynchronously called
           res.send(response);
         });
-    /*message.save()
+   /* message.save()
     .then(item => {
 	
-  //      res.send(item);
+       res.send(item);
 })
  .catch(err => {
   console.log(err)

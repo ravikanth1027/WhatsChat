@@ -8,7 +8,9 @@ import voipImg from '../../assets/SVG.png'
 import * as pageBase from '../../pageBase'
 
 async function loginUser(credentials) {
+  //var url = 'http://localhost:8080/login'
   var url = 'http://108.60.134.228:8080/login'
+  
  return fetch(url, {
    method: 'POST',
    headers: {
@@ -21,7 +23,9 @@ async function loginUser(credentials) {
 
 
 async function adminloginUser(credentials) {
+  //var url = 'http://localhost:8080/adminlogin'
   var url = 'http://108.60.134.228:8080/adminlogin'
+  
  return fetch(url, {
    method: 'POST',
    headers: {

@@ -14,6 +14,7 @@ var messagesRouter = require('./routes/messagesRouter')
 var addContactRouter = require('./routes/addContact')
 var adminRouter = require('./routes/adminLogin')
 var deleteRouter = require('./routes/deleteContact')
+var setReadRouter = require('./routes/setRead')
 
 var sendTelnyxRouter = require('./routes/sendTelnyx')
 var receiveTelnyxRouter = require('./routes/receviveTelnyx')
@@ -41,6 +42,7 @@ app.use('/sendtelnyx', sendTelnyxRouter);
 app.use('/receivetelnyx', receiveTelnyxRouter);
 app.use('/sampletest', sampleTestRouter);
 app.use('/deleteContact', deleteRouter);
+app.use('/setread', setReadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

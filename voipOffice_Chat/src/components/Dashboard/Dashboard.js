@@ -44,24 +44,26 @@ export default function Dashboard({user}) {
         //console.log(data)
     }, [data])
 
-	/*useEffect(() => {
+	useEffect(() => {
 
         const interval = setInterval(() => {
             fetchMessages();
         console.log('This will run every 10 second!');
         }, 10000);
         return () => clearInterval(interval);
-    }, []); */   
+    }, []);
 
     const fetchMessages=async()=>{
+        //var url = 'http://localhost:8080/messages?number='+ mainUser[0].split(',')[0]
         var url = 'http://108.60.134.228:8080/messages?number='+ mainUser[0].split(',')[0]
+        
     const response=await Axios(url);
-    //const response=await Axios('http://localhost:8080/sampletest?number='+ mainUser[0].split(',')[0]);
-    //console.log(response.data)
     setData(response.data) 
   }
     const sendMessages=async(x)=>{
+        //var url = 'http://localhost:8080/sendtelnyx'
         var url = 'http://108.60.134.228:8080/sendtelnyx'
+        
        const response_send=await Axios.post(url, x);
         console.log(response_send.data)
   }
@@ -83,7 +85,7 @@ export default function Dashboard({user}) {
                 messages: [...data[index].messages, new Message(true, message, new Date())],
             },
         })
-        //console.log("Index:  "+ data[index].contact.number)
+        //console.log("Index:  "+ new Date())
         setData(newData)
         setMessage('')
         //console.log("After pushMessage")
@@ -101,9 +103,11 @@ export default function Dashboard({user}) {
     }
 
     function filterContacts(data, search) {
+        console.log("filterContacts123", data)
         const result = data.filter(({ contact }) => {
             return !search || contact.name.toLowerCase().includes(search.toLowerCase())
         })
+        console.log("filterContacts", result)
         setFilterContacts(result)
     }
 
@@ -132,7 +136,7 @@ export default function Dashboard({user}) {
                     <header>
                         <Avatar user={contactSelected} showName />
                     </header>
-                    <MessagesBox messages={currentMessages} user={mainUser[0].split(',')[0]} />
+                    <MessagesBox messages={currentMessages} user={mainUser[0].split(',')[0]} contact_selected = {contactSelected} />
                     <ChatInputBox message={message} setMessage={setMessage} pushMessage={pushMessage} />
                 </main>
             ) : (

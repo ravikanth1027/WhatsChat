@@ -6,6 +6,7 @@ const router = express.Router();
 const faker = require('faker')
 
 router.post("/", (req, res) =>{
+    console.log("Add Contact")
     name = req.body.name
     number = req.body.number
     avatar = req.body.avatar

@@ -26,6 +26,7 @@ var mtxt = {
     "text": text
             };
 //console.log(mtxt)
+
 console.log("mtxt:",mtxt)
 console.log("receive api called", req.body.data.payload.to);
 
@@ -34,6 +35,7 @@ var message = new Message(mtxt);
 Message.find({'id':req.body.data.id},function(error,doc1){
 	if(len(doc1) == 0){
 		message["id"] = req.body.data.id
+    message["date"] = new Date()
 		message.save()
 		.then(item => {
     		bodyParms =  "phonenumber="+to+"&from="+from+"&message="+text+"&url=http://108.60.134.228:3000/dashboard&title=Voipsms Chat"
